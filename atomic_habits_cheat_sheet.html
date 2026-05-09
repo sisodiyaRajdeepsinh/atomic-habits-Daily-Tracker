@@ -1,0 +1,288 @@
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font-sans); }
+.sheet { padding: 1.5rem 1rem; max-width: 680px; }
+.header { text-align: center; margin-bottom: 1.5rem; }
+.header h1 { font-size: 20px; font-weight: 500; color: var(--color-text-primary); }
+.header p { font-size: 13px; color: var(--color-text-secondary); margin-top: 4px; }
+
+.section-label { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-text-tertiary); margin: 1.5rem 0 0.5rem; }
+
+.core-box { background: var(--color-background-secondary); border-radius: var(--border-radius-lg); padding: 1rem 1.25rem; margin-bottom: 0.75rem; border: 0.5px solid var(--color-border-tertiary); }
+.core-box h3 { font-size: 14px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 4px; }
+.core-box p { font-size: 13px; color: var(--color-text-secondary); line-height: 1.6; }
+.core-box .formula { font-size: 13px; font-weight: 500; color: var(--color-text-info); background: var(--color-background-info); border-radius: 6px; padding: 4px 10px; display: inline-block; margin-top: 6px; }
+
+.law-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 1rem; }
+.law-card { border-radius: var(--border-radius-lg); border: 0.5px solid var(--color-border-tertiary); overflow: hidden; }
+.law-header { padding: 10px 14px 8px; }
+.law-header .num { font-size: 11px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; opacity: 0.7; }
+.law-header h2 { font-size: 15px; font-weight: 500; margin-top: 2px; }
+.law-body { padding: 10px 14px 12px; background: var(--color-background-primary); }
+.tool { display: flex; gap: 8px; margin-bottom: 8px; align-items: flex-start; }
+.tool-icon { font-size: 15px; margin-top: 1px; flex-shrink: 0; }
+.tool-text { font-size: 12.5px; color: var(--color-text-secondary); line-height: 1.5; }
+.tool-text strong { color: var(--color-text-primary); font-weight: 500; }
+.example { font-size: 12px; color: var(--color-text-tertiary); font-style: italic; margin-top: 2px; }
+.bad-habit { padding: 7px 10px; border-radius: 6px; font-size: 12px; margin-top: 8px; border: 0.5px solid var(--color-border-tertiary); color: var(--color-text-secondary); }
+
+.law1 .law-header { background: #E6F1FB; color: #0C447C; }
+.law2 .law-header { background: #EEEDFE; color: #3C3489; }
+.law3 .law-header { background: #E1F5EE; color: #085041; }
+.law4 .law-header { background: #FAEEDA; color: #633806; }
+
+@media (prefers-color-scheme: dark) {
+  .law1 .law-header { background: #0C447C; color: #B5D4F4; }
+  .law2 .law-header { background: #3C3489; color: #CECBF6; }
+  .law3 .law-header { background: #085041; color: #9FE1CB; }
+  .law4 .law-header { background: #633806; color: #FAC775; }
+}
+
+.loop-row { display: flex; align-items: center; gap: 0; margin: 0.5rem 0 1rem; }
+.loop-step { flex: 1; text-align: center; padding: 10px 6px; border-radius: 8px; font-size: 12.5px; font-weight: 500; border: 0.5px solid var(--color-border-tertiary); }
+.loop-arrow { font-size: 14px; color: var(--color-text-tertiary); flex-shrink: 0; padding: 0 2px; }
+
+.identity-box { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 0.75rem; }
+.id-card { border-radius: var(--border-radius-md); padding: 10px 12px; text-align: center; border: 0.5px solid var(--color-border-tertiary); }
+.id-card .layer { font-size: 11px; color: var(--color-text-tertiary); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px; }
+.id-card .label { font-size: 13px; font-weight: 500; }
+.id-card .eg { font-size: 11.5px; color: var(--color-text-secondary); margin-top: 4px; font-style: italic; }
+.id-card.weak { background: var(--color-background-secondary); }
+.id-card.strong { background: var(--color-background-info); }
+.id-card.strong .label { color: var(--color-text-info); }
+
+.checklist { margin-bottom: 1rem; }
+.check-item { display: flex; gap: 10px; align-items: flex-start; padding: 9px 0; border-bottom: 0.5px solid var(--color-border-tertiary); }
+.check-item:last-child { border-bottom: none; }
+.check-item input[type=checkbox] { margin-top: 2px; flex-shrink: 0; width: 15px; height: 15px; accent-color: var(--color-text-info); cursor: pointer; }
+.check-item label { font-size: 13px; color: var(--color-text-secondary); line-height: 1.5; cursor: pointer; }
+.check-item label strong { color: var(--color-text-primary); font-weight: 500; }
+
+.quote-box { border-left: 3px solid var(--color-border-info); padding: 10px 14px; margin: 0.5rem 0 1.25rem; background: var(--color-background-info); border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0; }
+.quote-box p { font-size: 13px; color: var(--color-text-secondary); font-style: italic; line-height: 1.6; }
+
+.never-miss { display: flex; gap: 10px; align-items: center; background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 10px 14px; margin-bottom: 0.75rem; border: 0.5px solid var(--color-border-tertiary); }
+.never-miss i { font-size: 18px; color: var(--color-text-success); }
+.never-miss p { font-size: 13px; color: var(--color-text-secondary); line-height: 1.5; }
+.never-miss p strong { color: var(--color-text-primary); font-weight: 500; }
+
+.goldilocks { display: flex; align-items: center; gap: 0; margin-bottom: 1rem; }
+.gz { flex: 1; text-align: center; padding: 8px 4px; font-size: 12px; border-radius: var(--border-radius-md); border: 0.5px solid var(--color-border-tertiary); }
+.gz.too-easy { color: var(--color-text-secondary); background: var(--color-background-secondary); }
+.gz.zone { background: var(--color-background-success); color: var(--color-text-success); font-weight: 500; }
+.gz.too-hard { color: var(--color-text-secondary); background: var(--color-background-secondary); }
+.gz-arrow { font-size: 13px; color: var(--color-text-tertiary); padding: 0 3px; }
+
+.apply-btn { width: 100%; margin-top: 1.5rem; padding: 12px; border-radius: var(--border-radius-md); border: 0.5px solid var(--color-border-secondary); background: transparent; font-size: 14px; font-weight: 500; cursor: pointer; color: var(--color-text-primary); transition: background 0.15s; }
+.apply-btn:hover { background: var(--color-background-secondary); }
+</style>
+
+<div class="sheet">
+  <div class="header">
+    <h1>Atomic Habits — Full Cheat Sheet</h1>
+    <p>Everything you need to apply the book to real life</p>
+  </div>
+
+  <div class="section-label">Core philosophy</div>
+
+  <div class="core-box">
+    <h3>The 1% rule</h3>
+    <p>Tiny improvements compound dramatically. You don't need to be twice as good — just slightly better each day.</p>
+    <span class="formula">1% better every day = 37× better in a year</span>
+  </div>
+
+  <div class="core-box">
+    <h3>Systems beat goals</h3>
+    <p>Winners and losers have the same goals. What separates them is their daily system. Stop obsessing over outcomes — fix the process.</p>
+  </div>
+
+  <div class="section-label">Identity — the deepest lever</div>
+
+  <div class="identity-box">
+    <div class="id-card weak">
+      <div class="layer">Outcome</div>
+      <div class="label">I want to lose weight</div>
+      <div class="eg">Weakest — fades fast</div>
+    </div>
+    <div class="id-card weak">
+      <div class="layer">Process</div>
+      <div class="label">I'll go to the gym</div>
+      <div class="eg">Better, not enough</div>
+    </div>
+    <div class="id-card strong">
+      <div class="layer">Identity ⭐</div>
+      <div class="label">I am a healthy person</div>
+      <div class="eg">Most powerful</div>
+    </div>
+  </div>
+
+  <div class="quote-box">
+    <p>Every small action is a vote for the type of person you want to become. Cast enough votes and the identity shifts.</p>
+  </div>
+
+  <div class="section-label">The habit loop</div>
+
+  <div class="loop-row">
+    <div class="loop-step" style="background:var(--color-background-info);color:var(--color-text-info)">Cue<br><span style="font-weight:400;font-size:11px;opacity:0.8">Trigger</span></div>
+    <div class="loop-arrow">→</div>
+    <div class="loop-step" style="background:var(--color-background-warning);color:var(--color-text-warning)">Craving<br><span style="font-weight:400;font-size:11px;opacity:0.8">Desire</span></div>
+    <div class="loop-arrow">→</div>
+    <div class="loop-step" style="background:var(--color-background-secondary);color:var(--color-text-primary)">Response<br><span style="font-weight:400;font-size:11px;opacity:0.8">The habit</span></div>
+    <div class="loop-arrow">→</div>
+    <div class="loop-step" style="background:var(--color-background-success);color:var(--color-text-success)">Reward<br><span style="font-weight:400;font-size:11px;opacity:0.8">Satisfaction</span></div>
+  </div>
+
+  <div class="section-label">The 4 laws — how to build good habits</div>
+
+  <div class="law-grid">
+    <div class="law-card law1">
+      <div class="law-header">
+        <div class="num">Law 1</div>
+        <h2>Make it Obvious</h2>
+      </div>
+      <div class="law-body">
+        <div class="tool">
+          <span class="tool-icon">📋</span>
+          <div class="tool-text"><strong>Habit scorecard</strong> — write all your daily habits. Label each (+), (–), or (=).<div class="example">Just awareness starts change</div></div>
+        </div>
+        <div class="tool">
+          <span class="tool-icon">📍</span>
+          <div class="tool-text"><strong>Implementation intention</strong><div class="example">"I will [habit] at [time] in [place]"</div></div>
+        </div>
+        <div class="tool">
+          <span class="tool-icon">🔗</span>
+          <div class="tool-text"><strong>Habit stacking</strong><div class="example">"After [current habit], I will [new habit]"</div></div>
+        </div>
+        <div class="tool">
+          <span class="tool-icon">🏠</span>
+          <div class="tool-text"><strong>Environment design</strong> — put good cue items in plain sight<div class="example">Book on pillow = you'll read it</div></div>
+        </div>
+        <div class="bad-habit">🚫 Break bad habits → <strong>Make it invisible</strong> (remove the cue)</div>
+      </div>
+    </div>
+
+    <div class="law-card law2">
+      <div class="law-header">
+        <div class="num">Law 2</div>
+        <h2>Make it Attractive</h2>
+      </div>
+      <div class="law-body">
+        <div class="tool">
+          <span class="tool-icon">🎁</span>
+          <div class="tool-text"><strong>Temptation bundling</strong> — pair a "need to" with a "want to"<div class="example">"Netflix only while on treadmill"</div></div>
+        </div>
+        <div class="tool">
+          <span class="tool-icon">👥</span>
+          <div class="tool-text"><strong>Join the right group</strong> — we copy habits of people around us<div class="example">Go where your goal is the norm</div></div>
+        </div>
+        <div class="tool">
+          <span class="tool-icon">💬</span>
+          <div class="tool-text"><strong>Reframe mindset</strong><div class="example">"I have to gym" → "I get to gym"</div></div>
+        </div>
+        <div class="bad-habit">🚫 Break bad habits → <strong>Make it unattractive</strong> (see the downside clearly)</div>
+      </div>
+    </div>
+
+    <div class="law-card law3">
+      <div class="law-header">
+        <div class="num">Law 3</div>
+        <h2>Make it Easy</h2>
+      </div>
+      <div class="law-body">
+        <div class="tool">
+          <span class="tool-icon">⚡</span>
+          <div class="tool-text"><strong>Motion ≠ Action</strong> — planning isn't doing. Only action produces results.</div>
+        </div>
+        <div class="tool">
+          <span class="tool-icon">🔁</span>
+          <div class="tool-text"><strong>Repetitions matter more</strong> than time. Frequency builds the habit, not duration.</div>
+        </div>
+        <div class="tool">
+          <span class="tool-icon">⏱️</span>
+          <div class="tool-text"><strong>2-Minute Rule</strong> — scale any habit down to under 2 minutes to start<div class="example">"Read 1 page" not "Read 30 min"</div></div>
+        </div>
+        <div class="tool">
+          <span class="tool-icon">🏗️</span>
+          <div class="tool-text"><strong>Reduce friction</strong> — lay out gym clothes the night before<div class="example">Design env. to make good habits easier</div></div>
+        </div>
+        <div class="bad-habit">🚫 Break bad habits → <strong>Make it difficult</strong> (add friction)</div>
+      </div>
+    </div>
+
+    <div class="law-card law4">
+      <div class="law-header">
+        <div class="num">Law 4</div>
+        <h2>Make it Satisfying</h2>
+      </div>
+      <div class="law-body">
+        <div class="tool">
+          <span class="tool-icon">🧠</span>
+          <div class="tool-text"><strong>Immediate reward</strong> — your brain needs to feel good NOW, not in 3 months<div class="example">Treat yourself after a workout</div></div>
+        </div>
+        <div class="tool">
+          <span class="tool-icon">📅</span>
+          <div class="tool-text"><strong>Habit tracker</strong> — cross off each day. Don't break the chain.<div class="example">Visual progress is its own reward</div></div>
+        </div>
+        <div class="tool">
+          <span class="tool-icon">💪</span>
+          <div class="tool-text"><strong>Never miss twice</strong> — missing once is an accident. Missing twice is the new habit starting.<div class="example">Get back on track immediately</div></div>
+        </div>
+        <div class="bad-habit">🚫 Break bad habits → <strong>Make it unsatisfying</strong> (accountability partner)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-label">Advanced — the goldilocks rule</div>
+  <div class="goldilocks">
+    <div class="gz too-easy">😴 Too easy<br><span style="font-size:11px">Boring → quit</span></div>
+    <div class="gz-arrow">→</div>
+    <div class="gz zone">🎯 Just right<br><span style="font-size:11px">Motivated → flow</span></div>
+    <div class="gz-arrow">→</div>
+    <div class="gz too-hard">😰 Too hard<br><span style="font-size:11px">Anxious → quit</span></div>
+  </div>
+  <p style="font-size:12.5px;color:var(--color-text-secondary);margin-bottom:1rem;">Habits stick when the task is just slightly above your current ability. Push slightly beyond your comfort zone — not too far.</p>
+
+  <div class="never-miss">
+    <i class="ti ti-refresh" aria-hidden="true"></i>
+    <p><strong>The never-miss-twice rule:</strong> Missing one day is okay. The real damage is missing twice. Always show up the next day, even for just 2 minutes.</p>
+  </div>
+
+  <div class="section-label">Daily real-life checklist</div>
+  <div class="checklist">
+    <div class="check-item">
+      <input type="checkbox" id="c1">
+      <label for="c1"><strong>Set an implementation intention</strong> — write exactly when + where you'll do your habit today</label>
+    </div>
+    <div class="check-item">
+      <input type="checkbox" id="c2">
+      <label for="c2"><strong>Stack it</strong> — attach your new habit to something you already do every day</label>
+    </div>
+    <div class="check-item">
+      <input type="checkbox" id="c3">
+      <label for="c3"><strong>Reduce friction</strong> — prepare your environment the night before</label>
+    </div>
+    <div class="check-item">
+      <input type="checkbox" id="c4">
+      <label for="c4"><strong>Use the 2-minute version</strong> if you're not feeling it today — just start</label>
+    </div>
+    <div class="check-item">
+      <input type="checkbox" id="c5">
+      <label for="c5"><strong>Track it</strong> — mark your habit tracker / cross off the day</label>
+    </div>
+    <div class="check-item">
+      <input type="checkbox" id="c6">
+      <label for="c6"><strong>Give yourself an immediate reward</strong> after completing the habit</label>
+    </div>
+    <div class="check-item">
+      <input type="checkbox" id="c7">
+      <label for="c7"><strong>If you missed yesterday</strong> — just show up today, no excuses needed</label>
+    </div>
+    <div class="check-item">
+      <input type="checkbox" id="c8">
+      <label for="c8"><strong>Identity check</strong> — ask "What would a [healthy/productive/focused] person do right now?"</label>
+    </div>
+  </div>
+
+  <button class="apply-btn" onclick="sendPrompt('Help me apply Atomic Habits to one specific habit I want to build ↗')">Help me apply this to a specific habit I want to build ↗</button>
+</div>

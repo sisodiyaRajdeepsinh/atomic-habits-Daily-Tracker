@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Atomic Habits — 2026 Daily System</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+<div class="header">
+  <h1>⚡ Atomic Habits 2026</h1>
+  <p>Your daily system — every tick is saved for the full year</p>
+</div>
+
+<div class="date-nav">
+  <button onclick="prevDay()" title="Previous day"><i class="ti ti-chevron-left"></i></button>
+  <div class="date-display">
+    <span id="today-date">Loading...</span><span class="today-badge" id="today-badge"></span>
+    <input type="date" id="date-input" min="2026-01-01" max="2026-12-31" onchange="onDatePick(this.value)">
+  </div>
+  <button onclick="nextDay()" title="Next day"><i class="ti ti-chevron-right"></i></button>
+  <button class="today-btn" onclick="goToday()">Today</button>
+</div>
+
+<div class="tabs">
+  <button class="tab active" onclick="showTab('today',this)"><i class="ti ti-calendar"></i>Today</button>
+  <button class="tab" onclick="showTab('habits',this)"><i class="ti ti-check"></i>Habits</button>
+  <button class="tab" onclick="showTab('meals',this)"><i class="ti ti-bowl-spoon"></i>Meals</button>
+  <button class="tab" onclick="showTab('system',this)"><i class="ti ti-brain"></i>System</button>
+  <button class="tab" onclick="showTab('year',this)"><i class="ti ti-chart-dots"></i>Year</button>
+</div>
+
+<!-- TODAY TAB -->
+<div id="tab-today" class="panel active">
+  <div class="day-header">
+    <h2>Daily blocks</h2>
+    <span class="streak" id="streak-label"><i class="ti ti-flame"></i> Day 1</span>
+  </div>
+  <div class="progress-wrap">
+    <div class="progress-label"><span>Daily progress</span><span id="prog-text">0 / 11 done</span></div>
+    <div class="progress-bg"><div class="progress-fill" id="prog-bar" style="width:0%"></div></div>
+  </div>
+
+  <div class="time-block"><div class="tb-header"><span class="tb-time">8:00 AM</span><span class="tb-title"><i class="ti ti-alarm"></i>Wake up</span><span class="tag tag-blue">Identity</span><div class="tb-check" onclick="toggleBlock('wake')" id="chk-wake"><i class="ti ti-check" style="font-size:12px"></i></div></div><div class="tb-items"><div class="tb-item"><i class="ti ti-moon"></i>Phone across the room — you MUST get up</div><div class="tb-item"><i class="ti ti-droplet"></i>Drink water immediately — glass on nightstand</div><div class="tb-item"><i class="ti ti-apple"></i>Banana + PB + warm milk (450 cal)</div></div></div>
+
+  <div class="time-block"><div class="tb-header"><span class="tb-time">8:30 AM</span><span class="tb-title"><i class="ti ti-code"></i>Coding / LeetCode</span><span class="tag tag-purple">2-min rule</span><div class="tb-check" onclick="toggleBlock('code')" id="chk-code"><i class="ti ti-check" style="font-size:12px"></i></div></div><div class="tb-items"><div class="tb-item"><i class="ti ti-player-play"></i>2-min start: just open IDE or LeetCode tab</div><div class="tb-item"><i class="ti ti-clock"></i>Target: 45–60 min — 1 problem OR Python chapter</div><div class="tb-item"><i class="ti ti-rotate"></i>"After breakfast, I open laptop and start coding"</div></div></div>
+
+  <div class="time-block"><div class="tb-header"><span class="tb-time">9:30 AM</span><span class="tb-title"><i class="ti ti-book"></i>Reading (20 min)</span><span class="tag tag-blue">Obvious</span><div class="tb-check" onclick="toggleBlock('read')" id="chk-read"><i class="ti ti-check" style="font-size:12px"></i></div></div><div class="tb-items"><div class="tb-item"><i class="ti ti-book-2"></i>Keep book on desk — visible cue</div><div class="tb-item"><i class="ti ti-player-play"></i>2-min rule: just read 1 page</div></div></div>
+
+  <div class="time-block"><div class="tb-header"><span class="tb-time">10:30 AM</span><span class="tb-title"><i class="ti ti-bowl-spoon"></i>Meal 2 — Poha / Paratha</span><span class="tag tag-amber">550 cal</span><div class="tb-check" onclick="toggleBlock('meal2')" id="chk-meal2"><i class="ti ti-check" style="font-size:12px"></i></div></div><div class="tb-items"><div class="tb-item"><i class="ti ti-note"></i>2 parathas + ghee + curd OR poha with peanuts + lassi</div></div></div>
+
+  <div class="time-block"><div class="tb-header"><span class="tb-time">11:00 AM</span><span class="tb-title"><i class="ti ti-school"></i>AIML Study</span><span class="tag tag-purple">Deep work</span><div class="tb-check" onclick="toggleBlock('aiml')" id="chk-aiml"><i class="ti ti-check" style="font-size:12px"></i></div></div><div class="tb-items"><div class="tb-item"><i class="ti ti-player-play"></i>Start with easiest subtopic — lower activation energy</div><div class="tb-item"><i class="ti ti-clock"></i>60–90 min — phone in another room</div><div class="tb-item"><i class="ti ti-pencil"></i>Write 3 bullet point summary after</div></div></div>
+
+  <div class="time-block"><div class="tb-header"><span class="tb-time">1:00 PM</span><span class="tb-title"><i class="ti ti-bowl-spoon"></i>Lunch — Dal + rice</span><span class="tag tag-amber">650 cal</span><div class="tb-check" onclick="toggleBlock('lunch')" id="chk-lunch"><i class="ti ti-check" style="font-size:12px"></i></div></div><div class="tb-items"><div class="tb-item"><i class="ti ti-note"></i>2 cups rice + dal + sabzi + curd — biggest meal</div></div></div>
+
+  <div class="time-block"><div class="tb-header"><span class="tb-time">3:30 PM</span><span class="tb-title"><i class="ti ti-apple"></i>Pre-workout snack</span><span class="tag tag-amber">300 cal</span><div class="tb-check" onclick="toggleBlock('prework')" id="chk-prework"><i class="ti ti-check" style="font-size:12px"></i></div></div><div class="tb-items"><div class="tb-item"><i class="ti ti-note"></i>Soya chunks + banana — 2 hrs before workout</div></div></div>
+
+  <div class="time-block"><div class="tb-header"><span class="tb-time">6:00 PM</span><span class="tb-title"><i class="ti ti-run"></i>Workout</span><span class="tag tag-green">Non-negotiable</span><div class="tb-check" onclick="toggleBlock('workout')" id="chk-workout"><i class="ti ti-check" style="font-size:12px"></i></div></div><div class="tb-items"><div class="tb-item"><i class="ti ti-shirt"></i>Gym clothes laid out the night before</div><div class="tb-item"><i class="ti ti-player-play"></i>2-min rule: just put on the clothes</div><div class="tb-item"><i class="ti ti-friends"></i>Workout partner = social accountability</div></div></div>
+
+  <div class="time-block"><div class="tb-header"><span class="tb-time">7:30 PM</span><span class="tb-title"><i class="ti ti-bowl-spoon"></i>Post-workout meal</span><span class="tag tag-amber">450 cal</span><div class="tb-check" onclick="toggleBlock('postwork')" id="chk-postwork"><i class="ti ti-check" style="font-size:12px"></i></div></div><div class="tb-items"><div class="tb-item"><i class="ti ti-clock"></i>Within 30 min of workout</div><div class="tb-item"><i class="ti ti-note"></i>Milk + chana (50g) + peanuts (30g)</div></div></div>
+
+  <div class="time-block"><div class="tb-header"><span class="tb-time">9:30 PM</span><span class="tb-title"><i class="ti ti-bowl-spoon"></i>Dinner — Roti + sabzi</span><span class="tag tag-amber">550 cal</span><div class="tb-check" onclick="toggleBlock('dinner')" id="chk-dinner"><i class="ti ti-check" style="font-size:12px"></i></div></div><div class="tb-items"><div class="tb-item"><i class="ti ti-note"></i>3 rotis + ghee + soya sabzi or rajma + dal</div></div></div>
+
+  <div class="time-block"><div class="tb-header"><span class="tb-time">11:00 PM</span><span class="tb-title"><i class="ti ti-moon"></i>Wind down + prep</span><span class="tag tag-blue">Obvious</span><div class="tb-check" onclick="toggleBlock('wind')" id="chk-wind"><i class="ti ti-check" style="font-size:12px"></i></div></div><div class="tb-items"><div class="tb-item"><i class="ti ti-shirt"></i>Lay out gym clothes</div><div class="tb-item"><i class="ti ti-book"></i>Book on desk</div><div class="tb-item"><i class="ti ti-milk"></i>Warm milk (250 cal) — overnight recovery</div><div class="tb-item"><i class="ti ti-phone-off"></i>Phone across room</div></div></div>
+
+  <!-- CUSTOM TASKS -->
+  <div class="section-title" style="margin-top:20px;display:flex;align-items:center;gap:6px"><i class="ti ti-list-check" style="color:var(--purple)"></i>My Tasks</div>
+  <div class="task-add">
+    <input type="text" id="task-input" placeholder="Add a new task..." maxlength="100" onkeydown="if(event.key==='Enter')addTask()">
+    <button onclick="addTask()" title="Add task"><i class="ti ti-plus"></i></button>
+  </div>
+  <div id="task-list"></div>
+  <div class="task-empty" id="task-empty"><i class="ti ti-clipboard-list" style="font-size:20px"></i><br>No custom tasks yet — add one above!</div>
+</div>
+
+<!-- HABITS TAB -->
+<div id="tab-habits" class="panel">
+  <div class="progress-wrap">
+    <div class="progress-label"><span>This week</span><span id="week-text">0 / 35</span></div>
+    <div class="progress-bg"><div class="progress-fill" id="week-bar" style="width:0%"></div></div>
+  </div>
+  <div class="week-label" id="week-range">Week</div>
+  <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:12px 14px">
+    <div class="day-labels"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div>
+    <div id="habit-list"></div>
+  </div>
+</div>
+
+<!-- MEALS TAB -->
+<div id="tab-meals" class="panel">
+  <div class="cal-total"><div><div class="cal-label">Daily calories</div><div class="cal-num" id="cal-eaten">0 / 3,200 cal</div></div><i class="ti ti-flame" style="font-size:24px;color:var(--amber)"></i></div>
+  <div class="progress-wrap"><div class="progress-label"><span>Meals completed</span><span id="meal-prog-text">0 / 7</span></div><div class="progress-bg"><div class="progress-fill" id="meal-prog-bar" style="width:0%"></div></div></div>
+
+  <div class="meal-card"><div class="meal-header"><span class="meal-time">8:00 AM</span><span class="meal-name">Banana + PB + milk</span><span class="meal-cal">450</span><div class="meal-check" onclick="toggleMeal('m1')" id="mchk-m1"><i class="ti ti-check" style="font-size:12px"></i></div></div><div class="meal-body">2 bananas, 2 tbsp peanut butter, 1 glass full-fat milk + sugar</div></div>
+
+  <div class="meal-card"><div class="meal-header"><span class="meal-time">10:30 AM</span><span class="meal-name">Poha / Upma / Paratha</span><span class="meal-cal">550</span><div class="meal-check" onclick="toggleMeal('m2')" id="mchk-m2"><i class="ti ti-check" style="font-size:12px"></i></div></div><div class="meal-body">2 parathas + ghee + curd, OR large poha with peanuts + lassi</div></div>
+
+  <div class="meal-card"><div class="meal-header"><span class="meal-time">1:00 PM</span><span class="meal-name">Dal + rice + sabzi + curd</span><span class="meal-cal">650</span><div class="meal-check" onclick="toggleMeal('m3')" id="mchk-m3"><i class="ti ti-check" style="font-size:12px"></i></div></div><div class="meal-body">2 cups rice, 1 bowl dal, 1 sabzi, 1 bowl curd — biggest meal</div></div>
+
+  <div class="meal-card"><div class="meal-header"><span class="meal-time">3:30 PM</span><span class="meal-name">Soya chunks + fruit</span><span class="meal-cal">300</span><div class="meal-check" onclick="toggleMeal('m4')" id="mchk-m4"><i class="ti ti-check" style="font-size:12px"></i></div></div><div class="meal-body">Boiled soya chunks (30g dry) with masala + 1 banana or mango</div></div>
+
+  <div class="meal-card"><div class="meal-header"><span class="meal-time">7:30 PM</span><span class="meal-name">Milk + chana + peanuts</span><span class="meal-cal">450</span><div class="meal-check" onclick="toggleMeal('m5')" id="mchk-m5"><i class="ti ti-check" style="font-size:12px"></i></div></div><div class="meal-body">Warm milk + boiled chana (50g) + roasted peanuts (30g) — within 30 min of workout</div></div>
+
+  <div class="meal-card"><div class="meal-header"><span class="meal-time">9:30 PM</span><span class="meal-name">Roti + sabzi + dal</span><span class="meal-cal">550</span><div class="meal-check" onclick="toggleMeal('m6')" id="mchk-m6"><i class="ti ti-check" style="font-size:12px"></i></div></div><div class="meal-body">3 rotis + ghee, soya sabzi or rajma, 1 bowl dal</div></div>
+
+  <div class="meal-card"><div class="meal-header"><span class="meal-time">11:30 PM</span><span class="meal-name">Warm milk + banana</span><span class="meal-cal">250</span><div class="meal-check" onclick="toggleMeal('m7')" id="mchk-m7"><i class="ti ti-check" style="font-size:12px"></i></div></div><div class="meal-body">Warm full-fat milk — overnight muscle recovery</div></div>
+</div>
+
+<!-- SYSTEM TAB -->
+<div id="tab-system" class="panel">
+  <div class="section-title">The 4 Laws — applied to your life</div>
+  <div class="law-tip tip-blue"><div class="tip-title">Law 1 — Make it obvious</div>Book on desk. Gym clothes out. Phone across room. Environment does the reminding.</div>
+  <div class="law-tip tip-purple"><div class="tip-title">Law 2 — Make it attractive</div>Bundle coding with favourite music. Study AIML because it builds your AI/ML career.</div>
+  <div class="law-tip tip-green"><div class="tip-title">Law 3 — Make it easy (2-min rule)</div>Every habit has a 2-min version. Just open IDE. Just put on shoes. Just read 1 page.</div>
+  <div class="law-tip tip-amber"><div class="tip-title">Law 4 — Make it satisfying</div>Tick the box after every habit. Visual progress IS the reward. Never miss twice.</div>
+
+  <div class="section-title">Morning habit stack</div>
+  <div class="stack-card"><strong>8:00 AM</strong> — Alarm goes off</div><div class="arrow-down"><i class="ti ti-arrow-down"></i></div>
+  <div class="stack-card"><strong>After waking</strong> → drink water</div><div class="arrow-down"><i class="ti ti-arrow-down"></i></div>
+  <div class="stack-card"><strong>After water</strong> → eat breakfast (prepped)</div><div class="arrow-down"><i class="ti ti-arrow-down"></i></div>
+  <div class="stack-card"><strong>After breakfast</strong> → open laptop → code</div><div class="arrow-down"><i class="ti ti-arrow-down"></i></div>
+  <div class="stack-card"><strong>After coding</strong> → read 20 min</div>
+
+  <div class="section-title">Identity statements</div>
+  <div class="identity-card"><strong>I am a person who wakes up at 8 AM.</strong> I don't hit snooze — I get up.</div>
+  <div class="identity-card"><strong>I am a developer and AI/ML learner.</strong> I code and study every single day.</div>
+  <div class="identity-card"><strong>I am someone who trains consistently.</strong> I show up at 6 PM whether I feel like it or not.</div>
+  <div class="identity-card"><strong>I am a reader.</strong> I read every day — even if it's just one page.</div>
+</div>
+
+<!-- YEAR TAB -->
+<div id="tab-year" class="panel">
+  <div class="section-title">2026 Year Overview</div>
+  <div class="year-stats">
+    <div class="year-stat"><div class="num" id="year-active">0</div><div class="lbl">Active days</div></div>
+    <div class="year-stat"><div class="num" id="year-perfect">0</div><div class="lbl">5+ habits days</div></div>
+  </div>
+  <div id="year-grid" style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:12px"></div>
+  <div class="year-legend"><span>Less</span><div class="ycell"></div><div class="ycell lvl1"></div><div class="ycell lvl2"></div><div class="ycell lvl3"></div><div class="ycell lvl4"></div><span>More</span></div>
+</div>
+
+</div>
+<script src="app.js"></script>
+</body>
+</html>
