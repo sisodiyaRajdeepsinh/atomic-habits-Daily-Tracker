@@ -1,4 +1,20 @@
 // Atomic Habits 2026 — Full Year Tracker
+
+// Theme toggle
+function getTheme(){return localStorage.getItem('ah_theme')||'dark';}
+function applyTheme(t){
+  document.documentElement.setAttribute('data-theme',t);
+  const icon=document.getElementById('theme-icon');
+  if(icon){icon.className=t==='dark'?'ti ti-moon':'ti ti-sun';}
+}
+function toggleTheme(){
+  const t=getTheme()==='dark'?'light':'dark';
+  localStorage.setItem('ah_theme',t);
+  applyTheme(t);
+}
+// Apply saved theme immediately
+(function(){applyTheme(getTheme());})();
+
 const BLOCKS=['wake','code','read','meal2','aiml','lunch','prework','workout','postwork','dinner','wind'];
 const MEALS=[{id:'m1',cal:450},{id:'m2',cal:550},{id:'m3',cal:650},{id:'m4',cal:300},{id:'m5',cal:450},{id:'m6',cal:550},{id:'m7',cal:250}];
 const HABITS=[

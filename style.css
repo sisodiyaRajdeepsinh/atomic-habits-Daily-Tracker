@@ -1,8 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-:root{--bg:#0f1117;--bg2:#181a24;--bg3:#1e2130;--border:#2a2d3e;--text:#e8eaed;--text2:#9ba1b0;--text3:#636981;--green:#34d399;--green-bg:rgba(52,211,153,.12);--blue:#60a5fa;--blue-bg:rgba(96,165,250,.12);--amber:#fbbf24;--amber-bg:rgba(251,191,36,.12);--purple:#a78bfa;--purple-bg:rgba(167,139,250,.12);--coral:#fb7185;--coral-bg:rgba(251,113,133,.12);--radius:12px;--radius-sm:8px;--font:'Inter',system-ui,sans-serif}
+/* Dark theme (default) */
+:root,[data-theme="dark"]{--bg:#0f1117;--bg2:#181a24;--bg3:#1e2130;--border:#2a2d3e;--text:#e8eaed;--text2:#9ba1b0;--text3:#636981;--green:#34d399;--green-bg:rgba(52,211,153,.12);--blue:#60a5fa;--blue-bg:rgba(96,165,250,.12);--amber:#fbbf24;--amber-bg:rgba(251,191,36,.12);--purple:#a78bfa;--purple-bg:rgba(167,139,250,.12);--coral:#fb7185;--coral-bg:rgba(251,113,133,.12);--radius:12px;--radius-sm:8px;--font:'Inter',system-ui,sans-serif;--shadow:0 2px 8px rgba(0,0,0,.3)}
+/* Light theme */
+[data-theme="light"]{--bg:#f5f6fa;--bg2:#ffffff;--bg3:#eef0f5;--border:#d8dbe5;--text:#1a1d2e;--text2:#555a6e;--text3:#8b90a0;--green:#16a365;--green-bg:rgba(22,163,101,.1);--blue:#2563eb;--blue-bg:rgba(37,99,235,.1);--amber:#d97706;--amber-bg:rgba(217,119,6,.1);--purple:#7c3aed;--purple-bg:rgba(124,58,237,.1);--coral:#e11d48;--coral-bg:rgba(225,29,72,.1);--shadow:0 2px 8px rgba(0,0,0,.08)}
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;transition:background .3s,color .3s}
 .app{max-width:520px;margin:0 auto;padding:16px}
+/* Theme toggle */
+.theme-toggle{position:absolute;top:20px;right:16px;width:38px;height:38px;border-radius:50%;border:1px solid var(--border);background:var(--bg2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--text2);transition:.3s;z-index:10}
+.theme-toggle:hover{background:var(--bg3);color:var(--text);transform:scale(1.1)}
 /* Header */
 .header{text-align:center;padding:20px 0 8px}
 .header h1{font-size:20px;font-weight:700;background:linear-gradient(135deg,var(--green),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
@@ -16,7 +22,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
 .today-btn{font-size:11px!important;width:auto!important;padding:0 12px!important;border-radius:20px!important;font-weight:500}
 .today-badge{font-size:10px;color:var(--green);margin-left:4px}
 /* Tabs */
-.tabs{display:flex;gap:4px;padding:4px;background:var(--bg2);border-radius:var(--radius);margin:12px 0;border:1px solid var(--border)}
+.tabs{display:flex;gap:4px;padding:4px;background:var(--bg2);border-radius:var(--radius);margin:12px 0;border:1px solid var(--border);transition:background .3s,border-color .3s}
 .tab{flex:1;padding:9px 0;font-size:12px;font-weight:500;cursor:pointer;border:none;background:transparent;color:var(--text3);border-radius:var(--radius-sm);transition:.2s;display:flex;align-items:center;justify-content:center;gap:4px}
 .tab.active{background:var(--bg3);color:var(--text);box-shadow:0 2px 8px rgba(0,0,0,.3)}
 .tab:hover{color:var(--text2)}
@@ -31,9 +37,9 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
 .day-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
 .day-header h2{font-size:14px;font-weight:600}
 /* Time blocks */
-.time-block{border:1px solid var(--border);border-radius:var(--radius);margin-bottom:8px;overflow:hidden;transition:border-color .2s}
-.time-block:hover{border-color:#3a3d5e}
-.tb-header{display:flex;align-items:center;gap:8px;padding:10px 12px;background:var(--bg2)}
+.time-block{border:1px solid var(--border);border-radius:var(--radius);margin-bottom:8px;overflow:hidden;transition:all .3s}
+.time-block:hover{border-color:var(--text3)}
+.tb-header{display:flex;align-items:center;gap:8px;padding:10px 12px;background:var(--bg2);transition:background .3s}
 .tb-time{font-size:11px;font-weight:600;color:var(--text3);min-width:52px;font-variant-numeric:tabular-nums}
 .tb-title{font-size:13px;font-weight:500;flex:1;display:flex;align-items:center;gap:6px}
 .tb-check{width:22px;height:22px;border-radius:50%;border:2px solid var(--border);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.2s;flex-shrink:0;color:transparent}
@@ -65,7 +71,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
 .day-labels span{width:12px;text-align:center;font-size:10px;color:var(--text3)}
 /* Meals */
 .meal-card{border:1px solid var(--border);border-radius:var(--radius);margin-bottom:8px;overflow:hidden;transition:.2s}
-.meal-card:hover{border-color:#3a3d5e}
+.meal-card:hover{border-color:var(--text3)}
 .meal-header{display:flex;align-items:center;gap:8px;padding:10px 12px;background:var(--bg2)}
 .meal-time{font-size:11px;font-weight:600;color:var(--text3);min-width:52px}
 .meal-name{font-size:13px;font-weight:500;flex:1}
